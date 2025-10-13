@@ -21,7 +21,7 @@ const CertificationsSection = () => {
   }, []);
 
   return (
-    <section id="certifications" className="py-16 md:py-24">
+    <section id="certifications" className="py-16 md:py-24 scroll-mt-24 md:scroll-mt-32">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="mb-4">
@@ -36,11 +36,11 @@ const CertificationsSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {loading
             ? Array(4)
-                .fill(0)
-                .map((_, index) => <CertificationCardSkeleton key={index} />)
+              .fill(0)
+              .map((_, index) => <CertificationCardSkeleton key={index} />)
             : certifications.map((certification: CertificateDto) => (
-                <CertificationCard key={certification.id} {...certification} />
-              ))}
+              <CertificationCard key={certification.id} {...certification} />
+            ))}
         </div>
       </div>
     </section>

@@ -22,7 +22,7 @@ const ExperienceSection = () => {
   }, []);
 
   return (
-    <section id="experience" className="bg-secondary/50 py-16 md:py-24">
+    <section id="experience" className="bg-secondary/50 py-16 md:py-24 scroll-mt-24 md:scroll-mt-32">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="mb-4">
@@ -37,11 +37,11 @@ const ExperienceSection = () => {
         <div className="space-y-8">
           {loading
             ? Array(4)
-                .fill(0)
-                .map((_, index) => <ExperienceCardSkeleton key={index} />)
+              .fill(0)
+              .map((_, index) => <ExperienceCardSkeleton key={index} />)
             : experiences.map((experience: ExperienceDto) => (
-                <ExperienceCard key={experience.id} {...experience} />
-              ))}
+              <ExperienceCard key={experience.id} {...experience} />
+            ))}
         </div>
       </div>
     </section>

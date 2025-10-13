@@ -3,21 +3,17 @@ import { SkillDto } from "../../lib/entities/SkillDto";
 import SkillCard from "./SkillCard";
 import SkillCardSkeleton from "./SkillCardSkeleton";
 
-const SkillsSection = () => {
-  const [skills, setSkills] = useState([]);
+export default function SkillsSection() {
+  const [skills, setSkills] = useState<SkillDto[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(import.meta.env.VITE_API_URL + "/skills.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setSkills(data);
-      })
-      .catch((error) => console.error("Error fetching skills:", error))
-      .finally(() => {
-        setLoading(false);
-      });
+    (async () => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/skills.json`);
+      const data: SkillDto[] = await res.json();
+      setSkills(data);
+      setLoading(false);
+    })();
   }, []);
 
   return (
@@ -28,23 +24,16 @@ const SkillsSection = () => {
             Minhas <span className="gradient-text">Habilidades</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Tecnologias e ferramentas com as quais tenho experiência e
-            competência.
+            Tecnologias e ferramentas com as quais tenho experiência e competência.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {loading
-            ? Array(4)
-                .fill(0)
-                .map((_, index) => <SkillCardSkeleton key={index} />)
-            : skills.map((skill: SkillDto) => (
-                <SkillCard key={skill.id} {...skill} />
-              ))}
+            ? Array.from({ length: 4 }, (_, i) => <SkillCardSkeleton key={i} />)
+            : skills.map((s) => <SkillCard key={s.id} {...s} />)}
         </div>
       </div>
     </section>
   );
-};
-
-export default SkillsSection;
+}

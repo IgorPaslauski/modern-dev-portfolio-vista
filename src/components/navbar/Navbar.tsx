@@ -39,21 +39,35 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
-          <span className="text-xl font-bold gradient-text">Igor.dev</span>
+          <button
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("home");
+              if (el) {
+                el.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="text-xl font-bold gradient-text"
+            aria-label="Ir para o início"
+          >
+            Igor.dev
+          </button>
         </div>
         <div className="hidden md:flex items-center space-x-8">
           {loading
             ? Array.from({ length: 4 }).map((_, index) => (
-                <NavBarButtonSkeleton key={index} />
-              ))
+              <NavBarButtonSkeleton key={index} />
+            ))
             : navs.map((nav) => (
-                <NavBarButton
-                  key={nav.id}
-                  onClick={() => scrollToSection(nav.id)}
-                >
-                  {nav.label}
-                </NavBarButton>
-              ))}
+              <NavBarButton
+                key={nav.id}
+                onClick={() => scrollToSection(nav.id)}
+              >
+                {nav.label}
+              </NavBarButton>
+            ))}
           <ThemeToggle />
         </div>
         <div className="md:hidden flex items-center gap-2">
@@ -73,17 +87,17 @@ const Navbar = () => {
           <div className="flex flex-col space-y-4">
             {loading
               ? Array.from({ length: 4 }).map((_, index) => (
-                  <NavBarButtonSkeleton key={index} />
-                ))
+                <NavBarButtonSkeleton key={index} />
+              ))
               : navs.map((nav) => (
-                  <NavBarButton
-                    key={nav.id}
-                    onClick={() => scrollToSection(nav.id)}
-                    className="py-2"
-                  >
-                    {nav.label}
-                  </NavBarButton>
-                ))}
+                <NavBarButton
+                  key={nav.id}
+                  onClick={() => scrollToSection(nav.id)}
+                  className="py-2"
+                >
+                  {nav.label}
+                </NavBarButton>
+              ))}
           </div>
         </div>
       )}

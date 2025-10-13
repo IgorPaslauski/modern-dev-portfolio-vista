@@ -22,7 +22,13 @@ const HeroSection = () => {
               front-end e back-end com foco em React, Node.js, C# e TypeScript.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                onClick={() => {
+                  const el = document.getElementById("projects");
+                  el?.scrollIntoView({ behavior: "smooth" });
+                }}
+              >
                 Ver Projetos
               </Button>
               <a
